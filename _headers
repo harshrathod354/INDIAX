@@ -1,5 +1,32 @@
+# Cloudflare Pages custom headers.
+# Place this file at the top level of the site, next to index.html.
+# It works on Cloudflare Pages (and Netlify). GitHub Pages ignores it.
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000
+
+# Pages: always check for a fresh copy so edits go live quickly.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Images: cached for 30 days. If you replace an image, give it a new file name.
+/images/*
+  Cache-Control: public, max-age=2592000
+
+# Search engine files: short cache so updates are picked up.
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+# Content-Security-Policy is left out on purpose. The pages use inline styles and
+# scripts and load Google Fonts, and your contact form will need its provider's
+# domain added. Add a policy only after the form tool is connected and tested.
