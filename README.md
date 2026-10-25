@@ -1,88 +1,98 @@
-# INDIAX website (editable source)
+# INDIAX website
 
-This is the source for indiax.co.in. The menu and footer are stored once and added to every page by a small build script, so a change to them takes one edit instead of 17.
+Static website for INDIAX (indiax.co.in): industrial market intelligence and global expansion consulting for Indian manufacturers.
 
-## Folders
+There is no build step and no framework. Every page is a plain HTML file with its CSS and JavaScript inside it.
 
-```
-src/partials/header.html    The menu (shared by every page)
-src/partials/footer.html    The footer and the phone call bar (shared by every page)
-src/pages/*.html            One file per page. {{header}} and {{footer}} mark where the shared parts go
-public/                     Files copied as they are: images/, robots.txt, sitemap.xml, _headers
-build.js                    The build script (needs only Node.js)
-dist/                       The finished site, created by the build. Do not edit it
-```
-
-## Which file to edit
-
-| I want to change | Edit this file |
-|---|---|
-| Menu links or the menu button | `src/partials/header.html` |
-| Footer text, links, logo or the phone bar | `src/partials/footer.html` |
-| The wording of one page | `src/pages/<that page>.html` |
-| A page title, description or search tags | the `<head>` of `src/pages/<that page>.html` |
-| Images, sitemap, robots.txt, security headers | `public/` |
-
-After editing, rebuild (see below). Never edit files inside `dist/`, because the next build overwrites them.
-
-Two markers inside the partials are filled in by the build:
-- `{{cur:services}}` and similar highlight the current page in the menu.
-- `{{contact}}` becomes `#contact` on pages that have their own contact form, and `/#contact` (the home page form) on the others.
-
-## Build
-
-Install Node.js (version 18 or newer) once, then in this folder run:
+## Files
 
 ```
-node build.js
+index.html                  Home page
+services.html               Services (five capabilities)
+process.html                The five-step method
+global.html                 Global markets and region guide
+case-studies.html           Case study list with filters
+case-study-uae.html         UAE case study
+case-study-water.html       Water treatment case study
+blog.html                   Insights index
+blog-*.html                 Six articles
+privacy-policy.html         Privacy Policy
+accessibility-statement.html Accessibility Statement
+404.html                    "Page not found" page
+sitemap.xml                 List of pages for search engines
+robots.txt                  Crawl rules, points to the sitemap
+_headers                    Security and cache headers (Cloudflare Pages)
+images/                     Logos, share image and client logos
 ```
 
-The finished site appears in `dist/`. To preview it:
+## Preview locally
+
+Open `index.html` in a browser, or run this in the project folder and visit http://localhost:8000:
 
 ```
-cd dist
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000. (Do not double-click the files, because links to the home page use `/`.)
+## Deploy
 
-## Publish
+Upload everything in this folder to the top level of the site, keeping the `images` folder next to the HTML files.
 
-**Cloudflare Pages (recommended)**
-1. Put this folder in a GitHub repository.
-2. In Cloudflare Pages, create a project from that repository.
-3. Build command: `node build.js`. Build output directory: `dist`.
-4. Add the custom domain `indiax.co.in` and turn on HTTPS. Redirect `www` to `indiax.co.in`.
-5. From then on, every change you save to GitHub is built and published automatically. `_headers` is applied by Cloudflare.
+**Cloudflare Pages**
+1. Create a project and connect this repository (or upload the folder).
+2. Framework preset: none. Build command: leave empty. Output directory: `/`.
+3. Add `indiax.co.in` as a custom domain and turn on HTTPS.
+4. Redirect `www.indiax.co.in` to `indiax.co.in` (a single redirect rule). The canonical tags use the address without `www`.
+5. `_headers` applies automatically.
 
-**Without a build service**
-Run `node build.js` and upload the contents of `dist/` to your host. GitHub Pages ignores `_headers`.
+**GitHub Pages**
+1. Settings, Pages: publish from the main branch, root folder.
+2. Add the custom domain `indiax.co.in` and enable "Enforce HTTPS".
+3. GitHub Pages ignores `_headers`, so the security and cache headers will not apply.
 
 Check Cloudflare's and GitHub's current documentation for exact menu names, since they change.
 
-## Adding a page
+## After deploying
 
-1. Copy a page in `src/pages/` that is similar, and rename it.
-2. Keep `{{header}}` and `{{footer}}` where they are. Change the content, title, description, canonical tag and structured data.
-3. If it should highlight a menu item, name it like the others (for example `blog-something.html` highlights Insights). Otherwise no change is needed in `build.js`.
-4. Add it to `public/sitemap.xml`.
-5. Run the build.
+1. Open `/sitemap.xml`, `/robots.txt` and `/404` to confirm they load.
+2. Add the site to Google Search Console as a domain, submit `https://indiax.co.in/sitemap.xml`, then request indexing for the home page.
+3. Add the site to Bing Webmaster Tools.
+4. Test one page in Google's Rich Results Test, and share a link on LinkedIn to check the preview image.
+5. Run PageSpeed Insights on the home page.
 
-## SEO already set up
+## What is already set up for SEO
 
-Each page has a unique title, description and canonical tag, Open Graph and Twitter tags (image: `public/images/og-image.png`), and structured data. Web addresses end in `.html`. If you ever switch to clean addresses, change the canonical tags, sitemap and menu links together.
+- A unique title, description and canonical tag on every page.
+- Open Graph and Twitter tags, using `images/og-image.png` (1200x630).
+- Structured data: business details on the home page, breadcrumbs on inner pages, blog post data on the articles.
+- `robots.txt`, `sitemap.xml` and a `404.html` set to "noindex".
+
+Web addresses end in `.html` (for example `/services.html`). Canonical tags, the sitemap and menu links all use this style. If your host serves clean addresses instead, change all three together.
+
+## Adding or changing a page
+
+1. Copy an existing page of the same kind and edit the content.
+2. Set its `<title>`, meta description, canonical tag, Open Graph tags and structured data in the `<head>`.
+3. Add it to `sitemap.xml` and link to it from the menu or footer if needed.
+4. The header, footer and styles are repeated in each file. If you change the menu or footer, change it in every page.
 
 ## Contact form
 
-The forms currently open the visitor's email app (a `mailto:` link built by a script at the bottom of each page). To connect a form service, replace that script on each page that has a form. The blog page also has a newsletter box to connect.
+The forms open the visitor's email app with the details filled in (a `mailto:` link built by the script at the bottom of each page). To connect a third-party form tool:
+1. Search the pages for `mailto:hello@indiax.co.in?subject=` in the form script.
+2. Replace that part with a request to your form provider.
+3. Update the Privacy Policy so it names the provider.
+4. If you add a Content-Security-Policy later, allow the provider's domain.
+
+The blog page also has a newsletter box that needs connecting to your email tool.
 
 ## To confirm before launch
 
-- Case study results and the periods behind them, and each client's approval to be featured.
-- Trade agreement dates on `global.html` (marked "as of 15 Oct 2026").
-- Privacy Policy reviewed by a lawyer.
-- Permission to show each client logo on the home page.
-- Author name on the articles ("By IndiaX Team").
+- Case study results (3x leads, 15-20% conversion, +15% order intake, 30% pipeline growth): confirm the periods and that you may publish them, and that each client has approved being featured.
+- Trade agreement dates on `global.html` ("as of 15 Oct 2026"): check against official sources.
+- Privacy Policy: have it reviewed by a lawyer, and update it if you add analytics.
+- Client logos on the home page: confirm permission for each.
+- Article author name ("By IndiaX Team") and the spelling of the brand name.
+- Optional: add `images/hero.jpg` to put a photo behind the home page banner. Without it the page shows a navy background.
 
 ## Contact
 
