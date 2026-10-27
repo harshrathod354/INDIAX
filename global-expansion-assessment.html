@@ -6,101 +6,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Global Expansion Strategy Assessment | INDIAX</title>
-
-  <meta name="description" content="Assess your company's export position, growth challenges, and priorities for consistent, scalable international growth with INDIAX.">
-
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="Assess your company's export position, growth challenges, and international expansion priorities with INDIAX.">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     :root {
       --navy: #20396f;
       --text: #17243b;
       --muted: #596579;
-      --background: #f7f8fa;
+      --background: #f5f7f6;
       --white: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
+      --border: #e7eaf0;
     }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background: var(--background);
+      background: var(--white);
       line-height: 1.6;
     }
 
+    /* Header and INDIAX logo */
     header {
+      width: 100%;
       background: var(--white);
-      border-bottom: 1px solid #e5e8ee;
-      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
     }
 
     .header-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 18px 28px;
     }
 
     .logo {
-      color: var(--navy);
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: 1px;
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
     }
 
+    .logo img {
+      display: block;
+      width: 160px;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Main content */
     main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 56px 24px 72px;
+      width: 100%;
+      padding: 48px 20px 64px;
     }
 
     .intro {
-      text-align: center;
+      width: 100%;
       max-width: 760px;
-      margin: 0 auto 36px;
+      margin: 0 auto 32px;
+      text-align: center;
     }
 
     .eyebrow {
+      margin-bottom: 12px;
       color: var(--navy);
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 12px;
     }
 
     h1 {
-      color: var(--navy);
-      font-size: clamp(30px, 5vw, 44px);
-      line-height: 1.2;
       margin: 0 0 18px;
-      letter-spacing: -1px;
+      color: var(--navy);
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.2;
+      letter-spacing: -0.8px;
     }
 
     .intro p {
-      color: var(--muted);
-      font-size: 17px;
       margin: 0;
-    }
-
-    .form-container {
-      background: var(--white);
-      border: 1px solid #e5e8ee;
-      border-radius: 14px;
-      padding: 28px;
-      box-shadow: 0 8px 30px rgba(23, 36, 59, 0.05);
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px;
       color: var(--muted);
-      font-size: 13px;
-      border-top: 1px solid #e5e8ee;
+      font-size: 16px;
+    }
+
+    /* Assessment form */
+    .form-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .form-container [data-paperform-id="indiax"] {
+      display: block;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .form-container iframe {
+      display: block;
+      width: 100% !important;
+      max-width: 760px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    /* Footer */
+    footer {
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--muted);
       background: var(--white);
+      border-top: 1px solid var(--border);
+      font-size: 13px;
     }
 
     footer a {
@@ -108,14 +134,27 @@
       text-decoration: none;
     }
 
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile layout */
     @media (max-width: 600px) {
+      .header-inner {
+        padding: 16px 20px;
+      }
+
+      .logo img {
+        width: 135px;
+      }
+
       main {
-        padding: 36px 16px 48px;
+        padding: 32px 12px 44px;
       }
 
       .form-container {
-        padding: 14px;
-        border-radius: 10px;
+        padding: 12px;
+        border-radius: 8px;
       }
 
       .intro p {
@@ -126,13 +165,21 @@
 </head>
 
 <body>
+
   <header>
     <div class="header-inner">
-      <a class="logo" href="https://indiax.co.in/">INDIAX</a>
+      <a class="logo"
+         href="https://indiax.co.in/"
+         aria-label="INDIAX Home">
+        <img
+          src="/indiax-logo.png"
+          alt="INDIAX — Global Expansion Consulting">
+      </a>
     </div>
   </header>
 
   <main>
+
     <section class="intro">
       <div class="eyebrow">Global Expansion Consulting</div>
 
@@ -147,17 +194,21 @@
     </section>
 
     <section class="form-container">
-      <!-- Paperform inline embed -->
+
+      <!-- INDIAX Paperform inline embed -->
       <div data-paperform-id="indiax"></div>
 
       <script>
         (function() {
           var script = document.createElement('script');
           script.src = 'https://paperform.co/__embed.min.js';
+          script.async = true;
           document.body.appendChild(script);
         })();
       </script>
+
     </section>
+
   </main>
 
   <footer>
@@ -169,5 +220,6 @@
       </a>
     </p>
   </footer>
+
 </body>
 </html>
